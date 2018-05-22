@@ -12,7 +12,7 @@ if [[ ! $SVN_REPO ]]; then
 	exit
 fi
 
-if [[ -z "$TRAVIS_BRANCH" ]]; then
+if [[ -z "$TRAVIS_BRANCH" || "$TRAVIS_BRANCH" != "master" ]]; then
 	echo "Build branch is required and must be 'master'" 1>&2
 	exit
 fi
