@@ -61,11 +61,14 @@ if [ -e ".svnignore" ]; then
     svn propset -q -R svn:ignore -F .svnignore .
 fi
 
-
+# Add new files to SVN
 echo "Run svn add"
-svn status | grep '^!' | sed -e 's/\![ ]*/svn del -q /g' | sh
+svn stat svn | grep '^?' | awk '{print $2}' | xargs -I x svn add x@
+# Remove deleted files from SVN
+
 echo "Run svn del"
-svn status | grep '^?' | sed -e 's/\?[ ]*/svn add -q /g' | sh
+svn stat svn | grep '^!' | awk '{print $2}' | xargs -I x svn rm --force x@
+svn stat svn
 
 # If tag number and credentials are provided, commit to trunk.
 if [[ $TRAVIS_TAG && $WP_ORG_USERNAME && $WP_ORG_PASSWORD ]]; then
