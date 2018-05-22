@@ -29,9 +29,9 @@ GH_REF=https://github.com/${TRAVIS_REPO_SLUG}.git
 
 echo "Starting deploy..."
 
-mkdir build
+mkdir releases
 
-cd build
+cd releases
 BASE_DIR=$(pwd)
 
 echo "Checking out trunk from $SVN_REPO ..."
