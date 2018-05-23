@@ -68,7 +68,7 @@ echo "Run svn del"
 svn st | grep '^?' | sed -e 's/\?[ ]*/svn add -q /g' | sh
 
 # If tag number and credentials are provided, commit to trunk.
-if [[ $WP_ORG_USERNAME && $WP_ORG_PASSWORD ]]; then
+if [[ $SVN_REPO ]]; then
 	if [[ ! -d tags/$TRAVIS_TAG ]]; then
 
 		# SVN commit
