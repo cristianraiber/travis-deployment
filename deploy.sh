@@ -74,15 +74,13 @@ svn stat svn
 if [[ $TRAVIS_TAG && $WP_ORG_USERNAME && $WP_ORG_PASSWORD ]]; then
 	if [[ ! -d tags/$TRAVIS_TAG ]]; then
 
-		# Start committing to SVN
+		# SVN commit
 		echo "Commit to $SVN_REPO."
-		#svn ci --no-auth-cache  commit -m "commit version $TRAVIS_TAG" --username $WP_ORG_USERNAME --password $WP_ORG_PASSWORD --non-interactive 2>/dev/null
-        svn ci --no-auth-cache --username $WP_ORG_USERNAME --password $WP_ORG_PASSWORD svn -m "Deploy version $TRAVIS_TAG"
+		svn commit -m "commit version $TRAVIS_TAG" --username $SVN_USER --password $SVN_PASS --trust-server-cert --non-interactive
 		
-		
-		# Make a copy of `trunk` inside `tags` folder
-		#echo "Take snapshot of $TRAVIS_TAG"
-		#svn ci --no-auth-cache copy $SVN_REPO/trunk $SVN_REPO/tags/$TRAVIS_TAG -m "Take snapshot of $TRAVIS_TAG" --username $WP_ORG_USERNAME --password $WP_ORG_PASSWORD --non-interactive 2>/dev/null
+		# make a copy in /tags/ folder
+		echo "Take snapshot of $TRAVIS_TAG"
+		svn copy $SVN_REPO/trunk $SVN_REPO/tags/$TRAVIS_TAG -m "Take snapshot of $TRAVIS_TAG" --username $SVN_USER --password $SVN_PASS --trust-server-cert --non-interactive
 	else
 		echo "tags/$TRAVIS_TAG already exists."
 	fi
