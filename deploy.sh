@@ -78,6 +78,7 @@ if [[ $TRAVIS_TAG && $WP_ORG_USERNAME && $WP_ORG_PASSWORD ]]; then
 		# make a copy in /tags/ folder
 		echo "Take snapshot of $TRAVIS_TAG"
 		svn copy $SVN_REPO/trunk $SVN_REPO/tags/$TRAVIS_TAG -m "Take snapshot of $TRAVIS_TAG" --username $WP_ORG_USERNAME --password $WP_ORG_PASSWORD --trust-server-cert --non-interactive
+		echo "Finished copying to: $SVN_REPO/tags/$TRAVIS_TAG"
 	else
 		echo "tags/$TRAVIS_TAG already exists."
 	fi
