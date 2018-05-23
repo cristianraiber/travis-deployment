@@ -13,12 +13,12 @@ if [[ ! $SVN_REPO ]]; then
 fi
 
 if [[ -z "$TRAVIS_BRANCH" ]]; then
-	echo "Build branch is required and must be 'master'" 1>&2
+	echo "Build branch is required and must be 'master'"
 	exit
 fi
 
 if [[ -z "$TRAVIS_TAG" ]]; then
-	echo "This isn't a tagged release" 1>&2
+	echo "This isn't a tagged release"
 	exit
 fi
 
@@ -61,14 +61,14 @@ if [ -e ".svnignore" ]; then
     svn propset -q -R svn:ignore -F .svnignore .
 fi
 
-echo "Run svn del"
+echo "Run svn add"
 svn st | grep '^!' | sed -e 's/\![ ]*/svn del -q /g' | sh
 
-echo "Run svn add"
+echo "Run svn del"
 svn st | grep '^?' | sed -e 's/\?[ ]*/svn add -q /g' | sh
 
 # If tag number and credentials are provided, commit to trunk.
-if [[ $TRAVIS_TAG && $WP_ORG_USERNAME && $WP_ORG_PASSWORD ]]; then
+if [[ $WP_ORG_USERNAME && $WP_ORG_PASSWORD ]]; then
 	if [[ ! -d tags/$TRAVIS_TAG ]]; then
 
 		# SVN commit
