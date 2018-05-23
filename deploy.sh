@@ -73,11 +73,11 @@ if [[ $TRAVIS_TAG && $WP_ORG_USERNAME && $WP_ORG_PASSWORD ]]; then
 
 		# SVN commit
 		echo "Commit to $SVN_REPO."
-		svn commit -m "commit version $TRAVIS_TAG" --username $SVN_USER --password $SVN_PASS --trust-server-cert --non-interactive
+		svn commit -m "commit version $TRAVIS_TAG" --username $WP_ORG_USERNAME --password $WP_ORG_PASSWORD --trust-server-cert --non-interactive
 		
 		# make a copy in /tags/ folder
 		echo "Take snapshot of $TRAVIS_TAG"
-		svn copy $SVN_REPO/trunk $SVN_REPO/tags/$TRAVIS_TAG -m "Take snapshot of $TRAVIS_TAG" --username $SVN_USER --password $SVN_PASS --trust-server-cert --non-interactive
+		svn copy $SVN_REPO/trunk $SVN_REPO/tags/$TRAVIS_TAG -m "Take snapshot of $TRAVIS_TAG" --username $WP_ORG_USERNAME --password $WP_ORG_PASSWORD --trust-server-cert --non-interactive
 	else
 		echo "tags/$TRAVIS_TAG already exists."
 	fi
