@@ -61,10 +61,10 @@ if [ -e ".svnignore" ]; then
     svn propset -q -R svn:ignore -F .svnignore .
 fi
 
-echo "Run svn add"
+echo "Run svn del"
 svn st | grep '^!' | sed -e 's/\![ ]*/svn del -q /g' | sh
 
-echo "Run svn del"
+echo "Run svn add"
 svn st | grep '^?' | sed -e 's/\?[ ]*/svn add -q /g' | sh
 
 # If tag number and credentials are provided, commit to trunk.
